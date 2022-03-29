@@ -16,6 +16,7 @@ public class Department {
     private String departmentCode;
 
     public Department() {
+//        System.out.println("Department obj created");
     }
 
     public Department(Long departmentId, String departmentName, String departmentAddress, String departmentCode) {
@@ -66,9 +67,5 @@ public class Department {
     public void setDepartmentCode(String departmentCode) {
         this.departmentCode = departmentCode;
     }
-
-
-
-
 
 }
