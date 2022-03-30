@@ -1,12 +1,14 @@
 package com.stephanie.Springboot.tutorial.service;
 
 import com.stephanie.Springboot.tutorial.entity.Department;
+import com.stephanie.Springboot.tutorial.error.DepartmentNotFoundException;
 import com.stephanie.Springboot.tutorial.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class DepartmentServiceImpl implements DepartmentService {
@@ -24,18 +26,23 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long id) {
-        return departmentRepository.findById(id).get();
+    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
+        Optional<Department> department = departmentRepository.findById(departmentId);
+
+        if(!department.isPresent())
+            throw new DepartmentNotFoundException("Department does not exist");
+
+        return department.get();
     }
 
     @Override
-    public void deleteDepartmentById(Long id) {
-        departmentRepository.deleteById(id);
+    public void deleteDepartmentById(Long departmentId) {
+        departmentRepository.deleteById(departmentId);
     }
 
     @Override
-    public Department updateDepartmentById(Long id, Department department){
-        Department department_DB = departmentRepository.getById(id);
+    public Department updateDepartmentById(Long departmentId, Department department){
+        Department department_DB = departmentRepository.getById(departmentId);
 
         if(Objects.nonNull(department.getDepartmentName()) && !"".equalsIgnoreCase(department.getDepartmentName())){
             department_DB.setDepartmentName(department.getDepartmentName());
