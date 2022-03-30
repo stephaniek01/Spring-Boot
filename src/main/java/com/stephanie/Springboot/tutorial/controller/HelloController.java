@@ -1,13 +1,15 @@
 package com.stephanie.Springboot.tutorial.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 //always returns response body
 @RestController
 public class HelloController {
 
-    // @RequestMapping(value = "/", method = RequestMethod.GET)
+      @RequestMapping(value = "/", method = RequestMethod.GET)
     // OR
     @GetMapping("/")
     public String helloWorld(){
